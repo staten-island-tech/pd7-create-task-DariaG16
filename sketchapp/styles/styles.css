@@ -5,8 +5,6 @@ body {
   display: flex;
 }
 #canvas {
-  margin: auto;
-  margin: 50px;
   background-color: white;
 }
 #tools {
