@@ -27,3 +27,11 @@ body {
 #saveColor {
   height: 70px;
 }
+#saved {
+  margin: 10px;
+}
+#colors {
+  margin: 5px;
+  width: 80px;
+  height: 80px;
+}
