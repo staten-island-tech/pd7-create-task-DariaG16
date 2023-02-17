@@ -3,22 +3,31 @@ const DOMSelectors = {
   savedClrs: document.querySelector("#saved"),
   color: document.querySelector("#color"),
 };
-function works() {
-  console.log(``);
-}
-DOMSelectors.saveClr.addEventListener("click", works());
-let colorPick = DOMSelectors.color.value;
 
-DOMSelectors.saveClr.addEventListener("click", (i) => {
-  i = 0;
-  if (i < 16) {
+DOMSelectors.saveClr.addEventListener("input", function (e) {
+  console.log("hi");
+});
+function works() {
+  console.log("smh");
+}
+let colorPick = "#000000";
+DOMSelectors.color.addEventListener(
+  "input",
+  () => {
+    colorPick = DOMSelectors.color.value;
+    console.log(colorPick);
+  },
+  false
+);
+
+let amt = 0;
+DOMSelectors.saveClr.addEventListener("click", () => {
+  if (amt < 15) {
     DOMSelectors.savedClrs.insertAdjacentHTML(
       "beforeend",
-      `
-      
-    <button style="background-color:${colorPick};" id="colors"></button>`
+      `<button style="background-color:${colorPick};" id="colors"></button>`
     );
-    i++;
+    amt++;
     console.log("u did it");
   } else {
     console.log("you suck");
