@@ -3,12 +3,17 @@ const DOMSelectors = {
   savedClrs: document.querySelector("#saved"),
   color: document.querySelector("#color"),
   size: document.querySelector("#size"),
+  erase: document.querySelector("#erase"),
   lblSize: document.querySelector("#brushSize"),
 };
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+canvas.height = window.innerHeight;
 let amt = 0;
 let brSize = 1;
 let mouseX = null;
 let mouseY = null;
+let makeLine = false;
 
 DOMSelectors.color.addEventListener("input", () => input());
 DOMSelectors.size.addEventListener("input", () => input());
@@ -16,10 +21,11 @@ DOMSelectors.size.addEventListener("input", () => input());
 function input() {
   colorPick = DOMSelectors.color.value;
   brSize = DOMSelectors.size.value;
-  console.log(brSize);
   DOMSelectors.lblSize.innerHTML = `Brush Size: ${brSize} px`;
 }
-
+DOMSelectors.erase.addEventListener("click", () => {
+  colorPick = "#FFFFFF";
+});
 DOMSelectors.saveClr.addEventListener("click", () => {
   if (amt < 15) {
     DOMSelectors.savedClrs.insertAdjacentHTML(
@@ -33,30 +39,40 @@ DOMSelectors.saveClr.addEventListener("click", () => {
   }
 });
 
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-canvas.width = 1500;
-canvas.height = 948;
+let colors = document.querySelector("#colors");
 
-canvas.addEventListener("click", (e) => {
-  if (mouseX == null || mouseY == null) {
-    mouseX = e.clientX -= 406;
-    mouseY = e.clientY += 7;
-    return;
-  }
-  let mouseX2 = (e.clientX -= 406);
-  let mouseY2 = (e.clientY -= 7);
-  ctx.beginPath();
-  ctx.lineWidth = brSize;
-  ctx.strokeStyle = colorPick;
-  ctx.moveTo(mouseX2, mouseY2);
-  ctx.lineTo(mouseX, mouseY);
-  ctx.stroke();
-  // Update previous mouse position
-  mouseX = mouseX2;
-  mouseY = mouseY2;
+colors.addEventListener("click", () => {
+  colorPick = colors.style.backgroundColor;
 });
 
+const draw = (e) => {
+  if (!makeLine) {
+    return;
+  }
+  {
+    ctx.lineCap = `round`;
+    ctx.lineWidth = brSize;
+    ctx.strokeStyle = colorPick;
+    let mouseX2 = e.clientX - canvas.offsetLeft;
+    let mouseY2 = e.clientY;
+    ctx.lineTo(mouseX2, mouseY2);
+    ctx.stroke();
+    // Update previous mouse position
+  }
+};
+
+canvas.addEventListener("mousedown", (e) => {
+  makeLine = true;
+  mouseX = e.clientX; //figure this out
+  mouseY = e.clientY;
+});
+canvas.addEventListener("mouseup", (e) => {
+  makeLine = false;
+  ctx.stroke();
+  ctx.beginPath();
+});
+
+canvas.addEventListener("mousemove", draw);
 //If user clicks shift, make lines (the funcion i currently have)
 //make the lines smooth
 //create brush library to choose from

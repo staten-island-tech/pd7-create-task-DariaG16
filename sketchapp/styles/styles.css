@@ -1,3 +1,10 @@
+html,
+body,
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
   background-color: rgb(128, 132, 153);
 }
@@ -6,6 +13,7 @@ body {
 }
 #canvas {
   background-color: white;
+  cursor: crosshair;
 }
 #tools {
   margin: 20px;
@@ -13,11 +21,11 @@ body {
   justify-content: left;
   flex-direction: column;
   background-color: rgb(79, 80, 116);
-  width: 300px;
+  width: 370px;
   height: 87vh;
   font-size: 20px;
   color: rgb(197, 213, 226);
-  padding: 30px;
+  padding: 40px;
 }
 #color {
   margin: 20px;
