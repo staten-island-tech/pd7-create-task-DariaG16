@@ -47,7 +47,7 @@ body {
 #saved {
   margin: 10px;
 }
-#colors {
+.colors {
   margin: 5px;
   width: 80px;
   height: 80px;

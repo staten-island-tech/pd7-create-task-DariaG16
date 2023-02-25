@@ -30,7 +30,7 @@ DOMSelectors.saveClr.addEventListener("click", () => {
   if (amt < 15) {
     DOMSelectors.savedClrs.insertAdjacentHTML(
       "beforeend",
-      `<button style="background-color:${colorPick};" id="colors"></button>`
+      `<button style="background-color:${colorPick};" class="colors"></button>`
     );
     amt++;
     console.log("u did it");
@@ -38,11 +38,10 @@ DOMSelectors.saveClr.addEventListener("click", () => {
     console.log("you suck");
   }
 });
+const color = document.querySelector("colors");
 
-let colors = document.querySelector("#colors");
-
-colors.addEventListener("click", () => {
-  colorPick = colors.style.backgroundColor;
+DOMSelectors.savedClrs.addEventListener("click", () => {
+  console.log(color);
 });
 
 const draw = (e) => {
