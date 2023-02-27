@@ -16,6 +16,7 @@ let brSize = 1;
 let mouseX = null;
 let mouseY = null;
 let makeLine = false;
+let colorPick;
 
 DOMSelectors.color.addEventListener("input", () => input());
 DOMSelectors.size.addEventListener("input", () => input());
