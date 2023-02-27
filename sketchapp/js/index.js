@@ -1,3 +1,5 @@
+import "../styles/styles.css";
+
 const DOMSelectors = {
   saveClr: document.querySelector("#saveColor"),
   savedClrs: document.querySelector("#saved"),
