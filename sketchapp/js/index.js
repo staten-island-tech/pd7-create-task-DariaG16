@@ -11,6 +11,8 @@ const DOMSelectors = {
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 canvas.height = window.innerHeight;
+let mouseX = null;
+let mouseY = null;
 let amt = 0;
 let brSize = 1;
 let makeLine = false;
@@ -27,14 +29,23 @@ function input() {
 DOMSelectors.erase.addEventListener("click", () => {
   colorPick = "#FFFFFF";
 });
+let saveColors = [`#000000`];
+
+let lastElement = saveColors[saveColors.length - 1];
+
+let lastSaved = saveColors[saveColors.length - 1];
+
 DOMSelectors.saveClr.addEventListener("click", () => {
   if (amt < 15) {
     DOMSelectors.savedClrs.insertAdjacentHTML(
       "beforeend",
-      `<button style="background-color:${colorPick};" class="colors"></button>`
+      `<button style="background-color:${lastSaved};" class="colors"></button>`
     );
+    saveColors.push(colorPick);
     amt++;
-    console.log("u did it");
+    console.log(saveColors);
+    console.log(lastSaved);
+    console.log(lastElement);
   } else {
     console.log("you suck");
   }
