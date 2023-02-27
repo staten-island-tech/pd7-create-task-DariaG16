@@ -13,8 +13,6 @@ const ctx = canvas.getContext("2d");
 canvas.height = window.innerHeight;
 let amt = 0;
 let brSize = 1;
-let mouseX = null;
-let mouseY = null;
 let makeLine = false;
 let colorPick;
 
@@ -51,16 +49,15 @@ const draw = (e) => {
   if (!makeLine) {
     return;
   }
-  {
-    ctx.lineCap = `round`;
-    ctx.lineWidth = brSize;
-    ctx.strokeStyle = colorPick;
-    let mouseX2 = e.clientX - canvas.offsetLeft;
-    let mouseY2 = e.clientY;
-    ctx.lineTo(mouseX2, mouseY2);
-    ctx.stroke();
-    // Update previous mouse position
-  }
+
+  ctx.lineCap = `round`;
+  ctx.lineWidth = brSize;
+  ctx.strokeStyle = colorPick;
+  let mouseX2 = e.clientX - canvas.offsetLeft;
+  let mouseY2 = e.clientY;
+  ctx.lineTo(mouseX2, mouseY2);
+  ctx.stroke();
+  // Update previous mouse position
 };
 
 canvas.addEventListener("mousedown", (e) => {
