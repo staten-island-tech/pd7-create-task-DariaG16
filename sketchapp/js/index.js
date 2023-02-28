@@ -29,23 +29,19 @@ function input() {
 DOMSelectors.erase.addEventListener("click", () => {
   colorPick = "#FFFFFF";
 });
-let saveColors = [`#000000`];
-
-let lastElement = saveColors[saveColors.length - 1];
-
-let lastSaved = saveColors[saveColors.length - 1];
+let saveColors = ["#000000"];
 
 DOMSelectors.saveClr.addEventListener("click", () => {
   if (amt < 15) {
     DOMSelectors.savedClrs.insertAdjacentHTML(
       "beforeend",
-      `<button style="background-color:${lastSaved};" class="colors"></button>`
+      `<button style="background-color:${colorPick};" class="colors"></button>`
     );
     saveColors.push(colorPick);
+    let lastSaved = saveColors[saveColors.length - 1];
     amt++;
     console.log(saveColors);
     console.log(lastSaved);
-    console.log(lastElement);
   } else {
     console.log("you suck");
   }
@@ -60,7 +56,6 @@ const draw = (e) => {
   if (!makeLine) {
     return;
   }
-
   ctx.lineCap = `round`;
   ctx.lineWidth = brSize;
   ctx.strokeStyle = colorPick;
@@ -81,7 +76,6 @@ canvas.addEventListener("mouseup", (e) => {
   ctx.stroke();
   ctx.beginPath();
 });
-
 canvas.addEventListener("mousemove", draw);
 //If user clicks shift, make lines (the funcion i currently have)
 //make the lines smooth

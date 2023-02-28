@@ -6,7 +6,7 @@ body,
   box-sizing: border-box;
 }
 body {
-  background-color: rgb(128, 132, 153);
+  background-color: rgb(155, 155, 155);
 }
 .container {
   display: flex;
@@ -20,7 +20,7 @@ body {
   display: flex;
   justify-content: left;
   flex-direction: column;
-  background-color: rgb(79, 80, 116);
+  background-color: rgb(116, 116, 116);
   width: 370px;
   height: 87vh;
   font-size: 20px;
@@ -37,7 +37,7 @@ body {
   margin: 40px;
   height: 70px;
   font-size: 20px;
-  background-color: rgb(226, 197, 224);
+  background-color: rgb(226, 226, 226);
   color: rgb(52, 85, 112);
   padding: 30px;
   padding: 10px 40px;
