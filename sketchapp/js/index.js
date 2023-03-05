@@ -59,9 +59,8 @@ DOMSelectors.saveClr.addEventListener("click", () => {
 });
 
 function help() {
-  //not really sure what this does
+  DOMSelectors.savedClrs.innerHTML = ""; //not really sure what this does
   saveColors.forEach((color) => {
-    DOMSelectors.savedClrs.innerHTML = "";
     DOMSelectors.savedClrs.insertAdjacentHTML(
       "beforeend",
       `<button style="background-color:${color};" class="colors" id="${
