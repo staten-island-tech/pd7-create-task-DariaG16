@@ -10,13 +10,13 @@ const DOMSelectors = {
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 canvas.height = window.innerHeight;
-let mouseX = null;
-let mouseY = null;
-let amt = 0;
-let brSize = 1;
-let makeLine = false;
-let colorPick = "#000000";
-let savedClrsArray;
+let mouseX = null,
+  mouseY = null,
+  amt = 0,
+  brSize = 1,
+  makeLine = false,
+  colorPick = "#000000",
+  savedClrsArray;
 DOMSelectors.color.addEventListener("input", () => input());
 DOMSelectors.size.addEventListener("input", () => input());
 
@@ -35,10 +35,7 @@ DOMSelectors.erase.addEventListener("click", () => {
 let saveColors = new Set();
 DOMSelectors.saveClr.addEventListener("click", () => {
   if (amt < 15) {
-    DOMSelectors.savedClrs.insertAdjacentHTML(
-      "beforeend",
-      `<button style="background-color:${colorPick};" class="colors" id="${colorPick}"></button>` //saves the colors into an array and into buttons
-    );
+    help();
     amt++;
   } else if (amt === 15) {
     //im probably gonna delete this, too complicated i believe. But it makes a select option after 15 colors have been saved for the opportunity to save more colors, and adds options... its kinda broken tho
@@ -52,6 +49,7 @@ DOMSelectors.saveClr.addEventListener("click", () => {
       "beforeend",
       `<option style="background-color:${colorPick};" class="color" id="${colorPick}"></option>`
     );
+    amt++;
   } else {
     savedClrsArray.insertAdjacentHTML(
       "beforeend",
@@ -59,16 +57,25 @@ DOMSelectors.saveClr.addEventListener("click", () => {
     );
   }
   saveColors.add(colorPick);
-  console.log(saveColors);
+  //console.log(saveColors);
 });
 
-DOMSelectors.savedClrs.innerHTML = ""; //not really sure what this does
-saveColors.forEach((color) => {
-  document.querySelector(`#${colorPick}`).addEventListener("click", () => {
-    console.log(color.style.backgroundColor);
-    colorPick = color;
-  }); // deleted the inserthtml thing cause i dont get why i'd need to make new html for each color??? idk i dont understand
-});
+function help() {
+  DOMSelectors.savedClrs.innerHTML = ""; //not really sure what this does
+  saveColors.forEach((color) => {
+    DOMSelectors.savedClrs.insertAdjacentHTML(
+      "beforeend",
+      `<button style="background-color:${color};" class="colors" id="${
+        color.split("#")[1]
+      }"></button>` //saves the colors into an array and into buttons
+    );
+    document
+      .getElementById(color.split("#")[1])
+      .addEventListener("click", () => {
+        colorPick = color;
+      }); // deleted the inserthtml thing cause i dont get why i'd need to make new html for each color??? idk i dont understand
+  });
+}
 
 const draw = (e) => {
   if (!makeLine) {
