@@ -34,6 +34,7 @@ DOMSelectors.erase.addEventListener("click", () => {
 
 let saveColors = new Set();
 DOMSelectors.saveClr.addEventListener("click", () => {
+  saveColors.add(colorPick);
   if (saveColors.size < 16) {
     help();
   } else if (saveColors.size === 14) {
@@ -54,7 +55,7 @@ DOMSelectors.saveClr.addEventListener("click", () => {
       `<option style="background-color:${colorPick};" class="color" id="${colorPick}"></option>`
     );
   }
-  saveColors.add(colorPick);
+
   //console.log(saveColors);
 });
 
