@@ -34,10 +34,9 @@ DOMSelectors.erase.addEventListener("click", () => {
 
 let saveColors = new Set();
 DOMSelectors.saveClr.addEventListener("click", () => {
-  if (amt < 15) {
+  if (saveColors.size < 16) {
     help();
-    amt++;
-  } else if (amt === 15) {
+  } else if (saveColors.size === 14) {
     //im probably gonna delete this, too complicated i believe. But it makes a select option after 15 colors have been saved for the opportunity to save more colors, and adds options... its kinda broken tho
     DOMSelectors.savedClrs.insertAdjacentHTML(
       "beforeend",
@@ -49,7 +48,6 @@ DOMSelectors.saveClr.addEventListener("click", () => {
       "beforeend",
       `<option style="background-color:${colorPick};" class="color" id="${colorPick}"></option>`
     );
-    amt++;
   } else {
     savedClrsArray.insertAdjacentHTML(
       "beforeend",
@@ -61,8 +59,9 @@ DOMSelectors.saveClr.addEventListener("click", () => {
 });
 
 function help() {
-  DOMSelectors.savedClrs.innerHTML = ""; //not really sure what this does
+  //not really sure what this does
   saveColors.forEach((color) => {
+    DOMSelectors.savedClrs.innerHTML = "";
     DOMSelectors.savedClrs.insertAdjacentHTML(
       "beforeend",
       `<button style="background-color:${color};" class="colors" id="${
