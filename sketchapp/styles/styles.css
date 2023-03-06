@@ -52,3 +52,6 @@ body {
   width: 75px;
   height: 75px;
 }
+#noColorsLeft {
+  color: rgb(194, 142, 142);
+}

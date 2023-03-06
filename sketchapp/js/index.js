@@ -17,27 +17,24 @@ let mouseX = null,
   makeLine = false,
   colorPick = "#000000",
   savedClrsArray;
+
 DOMSelectors.color.addEventListener("input", () => input());
 DOMSelectors.size.addEventListener("input", () => input());
 DOMSelectors.erase.addEventListener("click", () => {
   colorPick = "#FFFFFF";
 });
-
 function input() {
   colorPick = DOMSelectors.color.value;
   brSize = DOMSelectors.size.value;
   DOMSelectors.lblSize.innerHTML = `Brush Size: ${brSize} px`;
 }
-
 let saveColors = new Set();
-
 DOMSelectors.saveClr.addEventListener("click", () => {
   saveColors.add(colorPick);
-  getColors();
+  getColors(saveColors.size);
 });
-
-function getColors() {
-  if (saveColors.size < 16) {
+function getColors(i) {
+  if (i < 16) {
     DOMSelectors.savedClrs.innerHTML = ""; //clears the innerHTML to refresh the html displayed
     saveColors.forEach((color) => {
       DOMSelectors.savedClrs.insertAdjacentHTML(
@@ -53,10 +50,12 @@ function getColors() {
         });
     });
   } else {
-    return;
+    DOMSelectors.savedClrs.insertAdjacentHTML(
+      "beforeend",
+      `<p id="noColorsLeft">You have filled out all the color slots!</p>`
+    );
   }
 }
-
 const draw = (e) => {
   if (!makeLine) {
     return;
