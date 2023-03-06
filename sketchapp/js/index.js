@@ -19,61 +19,42 @@ let mouseX = null,
   savedClrsArray;
 DOMSelectors.color.addEventListener("input", () => input());
 DOMSelectors.size.addEventListener("input", () => input());
+DOMSelectors.erase.addEventListener("click", () => {
+  colorPick = "#FFFFFF";
+});
 
 function input() {
-  //checks the values for the inputs i have when the function detects an input
   colorPick = DOMSelectors.color.value;
   brSize = DOMSelectors.size.value;
   DOMSelectors.lblSize.innerHTML = `Brush Size: ${brSize} px`;
 }
 
-DOMSelectors.erase.addEventListener("click", () => {
-  //erase button
-  colorPick = "#FFFFFF";
-});
-
 let saveColors = new Set();
+
 DOMSelectors.saveClr.addEventListener("click", () => {
   saveColors.add(colorPick);
-  if (saveColors.size < 16) {
-    help();
-  } else if (saveColors.size === 14) {
-    //im probably gonna delete this, too complicated i believe. But it makes a select option after 15 colors have been saved for the opportunity to save more colors, and adds options... its kinda broken tho
-    DOMSelectors.savedClrs.insertAdjacentHTML(
-      "beforeend",
-      `<label for="Saved Colors">More colors:</label>
-      <select name="Saved Colors" id="clrSavedArray"> Saved Colors</select>`
-    );
-    savedClrsArray = document.querySelector("#clrSavedArray");
-    savedClrsArray.insertAdjacentHTML(
-      "beforeend",
-      `<option style="background-color:${colorPick};" class="color" id="${colorPick}"></option>`
-    );
-  } else {
-    savedClrsArray.insertAdjacentHTML(
-      "beforeend",
-      `<option style="background-color:${colorPick};" class="color" id="${colorPick}"></option>`
-    );
-  }
-
-  //console.log(saveColors);
+  getColors();
 });
 
-function help() {
-  DOMSelectors.savedClrs.innerHTML = ""; //not really sure what this does
-  saveColors.forEach((color) => {
-    DOMSelectors.savedClrs.insertAdjacentHTML(
-      "beforeend",
-      `<button style="background-color:${color};" class="colors" id="${
-        color.split("#")[1]
-      }"></button>` //saves the colors into an array and into buttons
-    );
-    document
-      .getElementById(color.split("#")[1])
-      .addEventListener("click", () => {
-        colorPick = color;
-      }); // deleted the inserthtml thing cause i dont get why i'd need to make new html for each color??? idk i dont understand
-  });
+function getColors() {
+  if (saveColors.size < 16) {
+    DOMSelectors.savedClrs.innerHTML = ""; //clears the innerHTML to refresh the html displayed
+    saveColors.forEach((color) => {
+      DOMSelectors.savedClrs.insertAdjacentHTML(
+        "beforeend",
+        `<button style="background-color:${color};" class="colors" id="${
+          color.split("#")[1]
+        }"></button>` //saves the colors background color of the buttons
+      );
+      document
+        .getElementById(color.split("#")[1])
+        .addEventListener("click", () => {
+          colorPick = color;
+        });
+    });
+  } else {
+    return;
+  }
 }
 
 const draw = (e) => {
@@ -88,7 +69,6 @@ const draw = (e) => {
   ctx.lineTo(mouseX2, mouseY2);
   ctx.stroke();
 }; // i know i have to fix this bogdan its just complicated so im procrastinating
-
 canvas.addEventListener("mousedown", (e) => {
   makeLine = true;
   mouseX = e.clientX;
