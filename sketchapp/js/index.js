@@ -37,6 +37,7 @@ function getColors(i) {
   if (i < 16) {
     DOMSelectors.savedClrs.innerHTML = ""; //clears the innerHTML to refresh the html displayed
     saveColors.forEach((color) => {
+      console.log(color.split("#")[1]);
       DOMSelectors.savedClrs.insertAdjacentHTML(
         "beforeend",
         `<button style="background-color:${color};" class="colors" id="${
